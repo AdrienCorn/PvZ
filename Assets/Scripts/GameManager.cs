@@ -55,10 +55,12 @@ public class GameManager : MonoBehaviour
     public void AddEnergy(int energy)
     {
         this.energy += energy;
+        onEnergyUpdated?.Invoke();
     }
 
     public void RemoveEnergy(int energy)
     {
         this.energy -= energy;
+        onEnergyUpdated?.Invoke();
     }
 }
