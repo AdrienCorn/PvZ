@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     private int energy;
     private float time;
 
+    public static Action onTimeUpdated;
+    public static Action onEnergyUpdated;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -23,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        time = Time.time;
+        SetTime(Time.time);
     }
 
     public int GetEnergy()
@@ -39,10 +43,22 @@ public class GameManager : MonoBehaviour
     public void SetEnergy(int energy)
     {
         this.energy = energy;
+        onEnergyUpdated?.Invoke();
     }
 
     public void SetTime(float time)
     {
         this.time = time;
+        onTimeUpdated?.Invoke();
+    }
+
+    public void AddEnergy(int energy)
+    {
+        this.energy += energy;
+    }
+
+    public void RemoveEnergy(int energy)
+    {
+        this.energy -= energy;
     }
 }

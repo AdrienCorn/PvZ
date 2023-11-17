@@ -10,25 +10,34 @@ public class MainPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeTextMesh;
     [SerializeField] private TextMeshProUGUI energyTextMesh;
 
-    private void Start()
+    private void OnEnable()
     {
-        
+        GameManager.onTimeUpdated += SetTimeUI;
+        GameManager.onEnergyUpdated += SetEnergyUI;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onTimeUpdated -= SetTimeUI;
+        GameManager.onEnergyUpdated -= SetEnergyUI;
     }
 
     private void Update()
     {
-        SetTimeUI(GameManager.Instance.GetTime());
+        SetTimeUI();
     }
 
-    private void SetTimeUI(float timeValue)
+    private void SetTimeUI()
     {
-        float minutes = Mathf.Floor(timeValue / 60);
-        float seconds = timeValue % 60;
+        float time = GameManager.Instance.GetTime();
+        float minutes = Mathf.Floor(time / 60);
+        float seconds = time % 60;
         timeTextMesh.text = "Time : " + minutes + ":" + Mathf.RoundToInt(seconds);
     }
 
-    private void SetEnergyUI(int energyValue)
+    private void SetEnergyUI()
     {
+        int energyValue = GameManager.Instance.GetEnergy();
         energyTextMesh.text = "Energy : " + energyValue;
     }
 }
