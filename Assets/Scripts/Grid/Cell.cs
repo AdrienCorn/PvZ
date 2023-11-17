@@ -1,9 +1,47 @@
-public class Cell
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Cell : MonoBehaviour
 {
-    private readonly CellType cellType;
+    private static Color VALID_COLOR = new Color32(0, 255, 0, 50);
+    private static Color REMOVABLE_COLOR = new Color32(255, 0, 0, 50);
+
+    private CellType cellType;
     private ZodiacEntity entity;
 
-    public Cell(CellType cellType)
+    public RectTransform m_RectTransform;
+    public Image m_Image;
+
+    public void ResetColor()
+    {
+        m_Image.enabled = false;
+    }
+
+    public void ShowIfValid()
+    {
+        if (IsValid())
+        {
+            m_Image.color = VALID_COLOR;
+            m_Image.enabled = true;
+        }
+        else ResetColor();
+    }
+
+    public void ShowIfRemovable()
+    {
+        if(IsRemovable()) {
+            m_Image.color = REMOVABLE_COLOR;
+            m_Image.enabled = true;
+        }
+        else ResetColor();
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        m_RectTransform.anchoredPosition = position;
+    }
+
+    public void SetCellType(CellType cellType)
     {
         this.cellType = cellType;
     }

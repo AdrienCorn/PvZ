@@ -7,12 +7,14 @@ public class GridManager : MonoBehaviourSingleton<GridManager>
     public int ROWS = 5;
     public int COLUMNS = 9;
 
-    public float WIDTH = 17f;
-    public float HEIGHT = 8f;
+    public float WIDTH = 880f;
+    public float HEIGHT = 416f;
 
-    public Vector2 LEFT_BOTTOM = new(-8.5f, - 5f);
+    public Vector2 LEFT_BOTTOM = new(0, 0);
 
     private Cell[,] cells;
+
+    public GameObject cellPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,8 @@ public class GridManager : MonoBehaviourSingleton<GridManager>
     void FixedUpdate()
     {
         Instance.DebugGrid();
+
+        Instance.ShowValid();
     }
 
     private void InitGrid()
@@ -33,12 +37,36 @@ public class GridManager : MonoBehaviourSingleton<GridManager>
         {
             for(int j = 0; j < COLUMNS; j++)
             {
-                cells[i, j] = new Cell(CellType.NORMAL);
+                Cell cell = Instantiate(cellPrefab, transform).GetComponent<Cell>();
+                cell.SetPosition(new Vector2(LEFT_BOTTOM.x + WIDTH / COLUMNS * j, LEFT_BOTTOM.y + HEIGHT / ROWS * i));
+                cells[i, j] = cell;
             }
         }
     }
 
-    public bool TryDrop(Vector2 mousePos, ZodiacSign sign)
+    public void ShowValidCells()
+    {
+        for (int i = 0; i < ROWS; i++)
+        {
+            for (int j = 0; j < COLUMNS; j++)
+            {
+                cells[i, j].ShowIfValid();
+            }
+        }
+    }
+
+    public void ShowRemovableCells()
+    {
+        for (int i = 0; i < ROWS; i++)
+        {
+            for (int j = 0; j < COLUMNS; j++)
+            {
+                cells[i, j].ShowIfRemovable();
+            }
+        }
+    }
+
+    public bool TryDrop(Vector2 mousePos/*, ZodiacSign sign*/)
     {
         Cell cell = FindCell(mousePos);
 
@@ -62,7 +90,12 @@ public class GridManager : MonoBehaviourSingleton<GridManager>
         return cell.TryRemoveEntity();
     }
 
-    public Cell FindCell(Vector2 mousePos)
+    public void ShowValid()
+    {
+
+    }
+
+    private Cell FindCell(Vector2 mousePos)
     {
         Vector2 absolutePos = MouseToGrid(mousePos);
 
