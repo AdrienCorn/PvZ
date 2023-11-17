@@ -18,8 +18,33 @@ public class Cell
         return false;
     }
 
+    public bool TryRemoveEntity()
+    {
+        if(IsRemovable())
+        {
+            this.entity = null;
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsRemovable()
+    {
+        return IsEditable() && IsOccupied();
+    }
+
     public bool IsValid()
     {
-        return CellType.NORMAL.Equals(this.cellType) && this.entity == null;
+        return IsEditable() && !IsOccupied();
+    }
+
+    private bool IsOccupied()
+    {
+        return this.entity != null;
+    }
+
+    private bool IsEditable()
+    {
+        return CellType.NORMAL.Equals(this.cellType);
     }
 }

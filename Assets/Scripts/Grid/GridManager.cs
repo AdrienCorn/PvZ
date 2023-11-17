@@ -50,6 +50,18 @@ public class GridManager : MonoBehaviourSingleton<GridManager>
         return cell.TrySetEntity(/*sign*/);
     }
 
+    public bool TryRemove(Vector2 mousePos)
+    {
+        Cell cell = FindCell(mousePos);
+
+        if (cell == null)
+        {
+            return false;
+        }
+
+        return cell.TryRemoveEntity();
+    }
+
     public Cell FindCell(Vector2 mousePos)
     {
         Vector2 absolutePos = MouseToGrid(mousePos);
