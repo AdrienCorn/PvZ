@@ -8,12 +8,17 @@ public class Cell
         this.cellType = cellType;
     }
 
-    void setEntity(ZodiacEntity entity)
+    public bool TrySetEntity(/*ZodiacSign sign*/)
     {
-        this.entity = entity;
+        if(IsValid())
+        {
+            // TODO: Create new ZodiacEntity
+            return true;
+        }
+        return false;
     }
 
-    bool isValid()
+    public bool IsValid()
     {
         return CellType.NORMAL.Equals(this.cellType) && this.entity == null;
     }

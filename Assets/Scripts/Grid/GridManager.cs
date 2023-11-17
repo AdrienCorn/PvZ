@@ -38,6 +38,39 @@ public class GridManager : MonoBehaviourSingleton<GridManager>
         }
     }
 
+    public bool TryDrop(Vector2 mousePos, ZodiacSign sign)
+    {
+        Cell cell = FindCell(mousePos);
+
+        if (cell == null)
+        {
+            return false;
+        }
+
+        return cell.TrySetEntity(/*sign*/);
+    }
+
+    public Cell FindCell(Vector2 mousePos)
+    {
+        Vector2 absolutePos = MouseToGrid(mousePos);
+
+        // Check out of bounds
+        if (absolutePos.x < 0 || absolutePos.x > WIDTH || absolutePos.y < 0 || absolutePos.y > HEIGHT)
+        {
+            return null;
+        }
+
+        int x = Mathf.FloorToInt(absolutePos.x / (WIDTH / COLUMNS));
+        int y = Mathf.FloorToInt(absolutePos.y / (HEIGHT / ROWS));
+
+        return cells[x, y];
+    }
+
+    private Vector2 MouseToGrid(Vector2 mousePos)
+    {
+        return mousePos - LEFT_BOTTOM;
+    }
+
     private void DebugGrid()
     {
         float y;
