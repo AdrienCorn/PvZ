@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         time = 0;
         energy = 0;
+        EnergyManager.Instance.SpawnEnergy(new Vector3(0, 0, 0));
     }
 
     // Update is called once per frame

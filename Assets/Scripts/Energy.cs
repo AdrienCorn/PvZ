@@ -22,21 +22,19 @@ public class Energy : MonoBehaviour
 
     public void CatchEnergy()
     {
-        GameManager.Instance.AddEnergy(value);
         StartCoroutine(EnergyCatchedAnim());
     }
 
     public IEnumerator EnergyCatchedAnim()
     {
+        shakeTween.Kill();
         yield return new WaitForSeconds(0);
-        //Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        //Vector3 corner = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
-        GetComponent<RectTransform>().DOLocalMove(new Vector3(-500, 300, 1), 1).OnComplete(() => 
+        Vector3 energyTracker_position = GameObject.FindGameObjectsWithTag("EnergyTracker")[0].transform.position;
+        GetComponent<RectTransform>().DOMove(energyTracker_position, 1).OnComplete(() => 
         {
-            shakeTween.Kill();
+            GameManager.Instance.AddEnergy(value);
             Destroy(gameObject); 
         });
-        
     }
 
     private IEnumerator FadeOutWithDelay(float lifeTime)
@@ -52,7 +50,10 @@ public class Energy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
+    public void SetValue(int value)
+    {
+        this.value = value;
+    }
 
 
 
