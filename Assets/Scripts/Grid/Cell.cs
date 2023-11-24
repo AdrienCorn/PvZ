@@ -60,7 +60,7 @@ public class Cell : MonoBehaviour
     {
         if(IsRemovable())
         {
-            this.entity = null;
+            //this.entity = null;
             return true;
         }
         return false;
@@ -78,7 +78,7 @@ public class Cell : MonoBehaviour
 
     private bool IsOccupied()
     {
-        return this.entity != null;
+        return false;//this.entity != null;
     }
 
     private bool IsEditable()
