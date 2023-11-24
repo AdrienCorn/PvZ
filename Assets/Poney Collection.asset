@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bae56a66660bbe44a8bbeb896bfae9d, type: 3}
-  m_Name: Zodiac Collection
+  m_Script: {fileID: 11500000, guid: 87c673fd2af595a4a883f312c5a14277, type: 3}
+  m_Name: Poney Collection
   m_EditorClassIdentifier: 
   AllObject:
-  - prefab: {fileID: 8401906460224372008, guid: 156a0b0fdadd8d946b7ad772e972354e, type: 3}
+  - prefab: {fileID: 0}
     enumType: 0
     hpMax: 0
     damages: 0
@@ -22,8 +22,4 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 0
-    throwsProjectile: 1
-    Cost: 0
-    GenerateEnergy: 0
-    EnergyMin: 0
-    EnergyMax: 0
+    throwsProjectile: 0
