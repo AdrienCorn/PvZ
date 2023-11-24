@@ -7,7 +7,7 @@ public class Cell : MonoBehaviour
     private static Color REMOVABLE_COLOR = new Color32(255, 0, 0, 50);
 
     private CellType cellType;
-    //private ZodiacEntity entity;
+    private ZodiacEntity entity;
 
     public RectTransform m_RectTransform;
     public Image m_Image;
